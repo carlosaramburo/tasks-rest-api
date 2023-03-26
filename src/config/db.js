@@ -1,8 +1,12 @@
-import Database from 'mysql2';
+import { createPool } from 'mysql2/promise';
+import config from './environment.js';
 
-const pool = Database.createPool({
-    host: process.env.HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
+const pool = createPool({
+    host: config.DB_HOST || '',
+    port: config.DB_PORT || '',
+    user:  config.DB_USER || '',
+    password: config.DB_PASSWORD || '',
+    database: config.DB_NAME || ''
 });
+
+export default pool;
