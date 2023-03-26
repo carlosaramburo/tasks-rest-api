@@ -1,4 +1,4 @@
-import { getAllTasks as getAllTasksService, getTaskById as getTaskbyIdService } from '../services/tasksService.js';
+import { getAllTasks as getAllTasksService, getTaskById as getTaskbyIdService, createTask as createTaskService } from '../services/tasksService.js';
 
 const getAllTasks = async (req, res) => {
     const result = await getAllTasksService();
@@ -22,4 +22,14 @@ const getTaskById = async (req, res) => {
     }
 }
 
-export { getAllTasks, getTaskById }
+const createTask = async (req, res) => {    
+    const result = await createTaskService(req.body);
+
+    if(result.success === true)
+        res.status(201).send(result);
+    else {
+        res.status(500).send(result);
+    }
+}
+
+export { getAllTasks, getTaskById, createTask }

@@ -36,4 +36,17 @@ const getTaskById = async (id) => {
     }
 }
 
-export { getAllTasks, getTaskById }
+const createTask = async (body) => {
+    try {     
+        const sql = 'INSERT INTO task (??) VALUES (?)';
+
+        const task = await pool.query(sql, [Object.keys(body), Object.values(body)]);
+        return {success: true, task: task};
+    }
+    catch(err) {
+        const { message, code, errno, sqlState } = err;
+        return { success: false, error: {message, code, errno, sqlState} };
+    }
+}
+
+export { getAllTasks, getTaskById, createTask }
