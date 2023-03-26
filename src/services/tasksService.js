@@ -1,11 +1,17 @@
 import pool from "../config/db.js";
 
 const getAllTasks = async () => {
-    const sql = 'SELECT * FROM task';
+    try {
+        const sql = 'SELECT * FROM task';
 
-    const [tasks] = await pool.query(sql);
-
-    return tasks;
+        const [tasks] = await pool.query(sql);
+        return {success: true, tasks: tasks};
+    }
+    catch(err) {
+        const { message, code, errno, sqlState } = err;
+        return { success: false, error: {message, code, errno, sqlState} };
+    }
+    
 }
 
 const getTaskById = async (id) => { 
@@ -22,12 +28,10 @@ const getTaskById = async (id) => {
                 GROUP BY A.id`;
 
         const [task] = await pool.query(sql, [id]);
-        
         return {success: true, task: task};
     } 
     catch(err) {
         const { message, code, errno, sqlState } = err;
-
         return { success: false, error: {message, code, errno, sqlState} };
     }
 }

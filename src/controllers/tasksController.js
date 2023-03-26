@@ -1,12 +1,12 @@
-import { getAllTasks as getAllTasksService, getTaskById as getTaskbyIdService } from '../services/tasksService.js'
+import { getAllTasks as getAllTasksService, getTaskById as getTaskbyIdService } from '../services/tasksService.js';
 
 const getAllTasks = async (req, res) => {
-    try {
-        const tasks = await getAllTasksService();
-        res.send(tasks);
-    } catch(e) {
-        res.status(500);
-        res.send('Error retrieving all tasks');
+    const result = await getAllTasksService();
+    
+    if(result.success === true)
+        res.status(200).send(result.tasks);
+    else {
+        res.status(500).send(result);
     }
 };
 
