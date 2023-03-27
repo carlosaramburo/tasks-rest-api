@@ -22,7 +22,7 @@ const getTagById = async (req, res) => {
     if(result.success === true && result.tag.length > 0)
         res.status(200).send(result.tag);
     else if (result.success === true && result.tag.length <= 0)
-        res.status(404); 
+        res.sendStatus(404); 
     else {
         res.status(500).send(result);
     };
