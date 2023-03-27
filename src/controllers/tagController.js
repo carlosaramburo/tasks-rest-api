@@ -1,7 +1,9 @@
 import { 
     getAllTags as getAllTagsService, 
     getTagById as getTagbyIdService,
-    createTag as  createTagService } 
+    createTag as  createTagService,
+    updateTag as updateTagService,
+    deleteTag as deleteTagService } 
 from "../services/tagService.js";
 
 const getAllTags = async (req, res) => {
@@ -38,4 +40,26 @@ const createTag = async(req,res) => {
     };
 };
 
-export { getAllTags, getTagById, createTag };
+const updateTag = async (req, res) => {
+    const result = await updateTagService(req.params.id, req.body);
+
+    if(result.success === true)
+        res.sendStatus(200);
+    else {
+        res.status(500).send(result);
+    };
+};
+
+const deleteTag = async (req, res) => {
+    const result = await deleteTagService(req.params.id);
+    
+    if(result.success === true && result.affectedRows == 1)
+        res.sendStatus(200);
+    else if (result.success === true && result.affectedRows == 0)
+        res.sendStatus(404);
+    else {
+        res.status(500).send(result);
+    };
+};
+
+export { getAllTags, getTagById, createTag, updateTag, deleteTag };

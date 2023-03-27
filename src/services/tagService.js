@@ -39,4 +39,30 @@ const createTag = async (body) => {
     };
 };
 
-export { getAllTags, getTagById, createTag };
+const updateTag = async (id, body) => {
+    try {     
+        const sql = "UPDATE tag SET ? WHERE id = ?";
+
+        const result = await pool.query(sql, [body, id]);
+        return {success: true, result};
+    }
+    catch(err) {
+        const { message, code, errno, sqlState } = err;
+        return { success: false, error: {message, code, errno, sqlState} };
+    };
+};
+
+const deleteTag = async (id) => { 
+    try {
+        const sql = 'DELETE FROM tag WHERE id = ?';
+
+        const [result] = await pool.query(sql, [id]);
+        return {success: true, affectedRows: result.affectedRows };
+    } 
+    catch(err) {
+        const { message, code, errno, sqlState } = err;
+        return { success: false, error: {message, code, errno, sqlState} };
+    };
+};
+
+export { getAllTags, getTagById, createTag, updateTag, deleteTag };
