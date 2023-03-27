@@ -1,5 +1,5 @@
 {
-  "name": "todo-rest-api",
+  "name": "tasks-rest-api",
   "version": "1.0.0",
   "description": "REST API to keep track of tasks.",
   "main": "index.js",
