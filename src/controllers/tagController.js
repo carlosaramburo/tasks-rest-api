@@ -1,6 +1,7 @@
 import { 
     getAllTags as getAllTagsService, 
-    getTagById as getTagbyIdService } 
+    getTagById as getTagbyIdService,
+    createTag as  createTagService } 
 from "../services/tagService.js";
 
 const getAllTags = async (req, res) => {
@@ -25,4 +26,16 @@ const getTagById = async (req, res) => {
     };
 };
 
-export { getAllTags, getTagById };
+const createTag = async(req,res) => {
+    const result = await createTagService(req.body);
+
+    if(result.success === true) {
+        const task = await getTagbyIdService(result.insertId);
+        res.status(201).send(task);
+    }
+    else {
+        res.status(500).send(result);
+    };
+};
+
+export { getAllTags, getTagById, createTag };

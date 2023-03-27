@@ -26,4 +26,17 @@ const getTagById = async (id) => {
     };
 };
 
-export { getAllTags, getTagById };
+const createTag = async (body) => {
+    try {     
+        const sql = 'INSERT INTO tag (??) VALUES (?)';
+
+        const [result] = await pool.query(sql, [Object.keys(body), Object.values(body)]);
+        return {success: true, insertId: result.insertId};
+    }
+    catch(err) {
+        const { message, code, errno, sqlState } = err;
+        return { success: false, error: {message, code, errno, sqlState} };
+    };
+};
+
+export { getAllTags, getTagById, createTag };
