@@ -11,8 +11,8 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 // Routes
-app.use(tasksRoutes);
-app.use(tagsRoutes);
+app.use('/api/v1', tasksRoutes);
+app.use('/api/v1', tagsRoutes);
 
 const PORT = config.PORT || 3000;
 app.listen(PORT, () => {
