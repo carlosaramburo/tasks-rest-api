@@ -4,7 +4,7 @@ import {
     createTag as  createTagService,
     updateTag as updateTagService,
     deleteTag as deleteTagService } 
-from "../services/tagService.js";
+from "../services/tagsService.js";
 
 const getAllTags = async (req, res) => {
     const result = await getAllTagsService();

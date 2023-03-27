@@ -2,7 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import config from './config/environment.js';
 import tasksRoutes from './routes/tasksRouter.js';
-import tagsRoutes from './routes/tagRouter.js';
+import tagsRoutes from './routes/tagsRouter.js';
 import commentsRoutes from './routes/commentsRouter.js';
 
 const app = express();
