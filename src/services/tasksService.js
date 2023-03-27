@@ -40,8 +40,8 @@ const createTask = async (body) => {
     try {     
         const sql = 'INSERT INTO task (??) VALUES (?)';
 
-        const task = await pool.query(sql, [Object.keys(body), Object.values(body)]);
-        return {success: true, task: task};
+        const result = await pool.query(sql, [Object.keys(body), Object.values(body)]);
+        return {success: true, result: result};
     }
     catch(err) {
         const { message, code, errno, sqlState } = err;
@@ -49,4 +49,17 @@ const createTask = async (body) => {
     }
 }
 
-export { getAllTasks, getTaskById, createTask }
+const updateTask = async (id, body) => {
+    try {     
+        const sql = "UPDATE task SET ? WHERE id = ?";
+
+        const result = await pool.query(sql, [body, id]);
+        return {success: true, result};
+    }
+    catch(err) {
+        const { message, code, errno, sqlState } = err;
+        return { success: false, error: {message, code, errno, sqlState} };
+    }
+}
+
+export { getAllTasks, getTaskById, createTask, updateTask }
