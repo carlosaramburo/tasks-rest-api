@@ -74,4 +74,32 @@ const deleteTask = async (id) => {
     };
 };
 
-export { getAllTasks, getTaskById, createTask, updateTask, deleteTask };
+const addTagtoTask = async (body) => {
+    try {
+        const sql = 'INSERT INTO task_tag VALUES(?, ?)';
+        console.log(sql);
+
+        const [result] = await pool.query(sql, [body.taskId, body.tagId]);
+        return {success: true, affectedRows: result.affectedRows };
+    } 
+    catch(err) {
+        const { message, code, errno, sqlState } = err;
+        return { success: false, error: {message, code, errno, sqlState} };
+    };
+};
+
+const deleteTagfromTask = async (params) => {
+    try {
+        const sql = 'DELETE FROM task_tag WHERE task_id = ? AND tag_id = ?';
+
+        const [result] = await pool.query(sql, [params.taskId, params.tagId]);
+        return {success: true, affectedRows: result.affectedRows };
+    } 
+    catch(err) {
+        console.log(err);
+        const { message, code, errno, sqlState } = err;
+        return { success: false, error: {message, code, errno, sqlState} };
+    };
+};
+
+export { getAllTasks, getTaskById, createTask, updateTask, deleteTask, addTagtoTask, deleteTagfromTask };

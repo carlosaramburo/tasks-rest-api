@@ -3,7 +3,9 @@ import {
     getTaskById as getTaskbyIdService, 
     createTask as createTaskService, 
     updateTask as updateTaskService,
-    deleteTask as deleteTaskService } 
+    deleteTask as deleteTaskService,
+    addTagtoTask as addTagtoTaskService,
+    deleteTagfromTask as deleteTagfromTaskService } 
 from '../services/tasksService.js';
 
 const getAllTasks = async (req, res) => {
@@ -63,4 +65,28 @@ const deleteTask = async (req, res) => {
     };
 };
 
-export { getAllTasks, getTaskById, createTask, updateTask, deleteTask };
+const addTagtoTask = async (req, res) => {
+    const result = await addTagtoTaskService(req.body);
+    
+    if(result.success === true) {
+        const task = await getTaskbyIdService(req.body.taskId);
+        res.status(200).send(task);
+    }
+    else {
+        res.status(500).send(result);
+    };
+}
+
+const deleteTagfromTask = async (req, res) => {
+    const result = await deleteTagfromTaskService(req.params);
+    
+    if(result.success === true && result.affectedRows == 1)
+        res.sendStatus(200);
+    else if (result.success === true && result.affectedRows == 0)
+        res.sendStatus(404);
+    else {
+        res.status(500).send(result);
+    };
+};
+
+export { getAllTasks, getTaskById, createTask, updateTask, deleteTask, addTagtoTask, deleteTagfromTask };
