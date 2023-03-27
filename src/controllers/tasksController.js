@@ -2,7 +2,8 @@ import {
     getAllTasks as getAllTasksService,
     getTaskById as getTaskbyIdService, 
     createTask as createTaskService, 
-    updateTask as updateTaskService } 
+    updateTask as updateTaskService,
+    deleteTask as deleteTaskService } 
 from '../services/tasksService.js';
 
 const getAllTasks = async (req, res) => {
@@ -29,9 +30,10 @@ const getTaskById = async (req, res) => {
 
 const createTask = async (req, res) => {    
     const result = await createTaskService(req.body);
+    console.log(result);
 
     if(result.success === true) {
-        const task = await getTaskbyIdService(result.result[0].insertId);
+        const task = await getTaskbyIdService(result.insertId);
         res.status(201).send(task);
     }
     else {
@@ -49,4 +51,16 @@ const updateTask = async (req, res) => {
     }
 }
 
-export { getAllTasks, getTaskById, createTask, updateTask }
+const deleteTask = async (req, res) => {
+    const result = await deleteTaskService(req.params.id);
+    
+    if(result.success === true && result.affectedRows == 1)
+        res.sendStatus(200);
+    else if (result.success === true && result.affectedRows == 0)
+        res.sendStatus(404);
+    else {
+        res.status(500).send(result);
+    }
+}
+
+export { getAllTasks, getTaskById, createTask, updateTask, deleteTask }

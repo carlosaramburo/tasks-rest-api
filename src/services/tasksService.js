@@ -40,8 +40,8 @@ const createTask = async (body) => {
     try {     
         const sql = 'INSERT INTO task (??) VALUES (?)';
 
-        const result = await pool.query(sql, [Object.keys(body), Object.values(body)]);
-        return {success: true, result: result};
+        const [result] = await pool.query(sql, [Object.keys(body), Object.values(body)]);
+        return {success: true, insertId: result.insertId};
     }
     catch(err) {
         const { message, code, errno, sqlState } = err;
@@ -62,4 +62,17 @@ const updateTask = async (id, body) => {
     }
 }
 
-export { getAllTasks, getTaskById, createTask, updateTask }
+const deleteTask = async (id) => { 
+    try {
+        const sql = 'DELETE FROM task WHERE id = ?';
+
+        const [result] = await pool.query(sql, [id]);
+        return {success: true, affectedRows: result.affectedRows };
+    } 
+    catch(err) {
+        const { message, code, errno, sqlState } = err;
+        return { success: false, error: {message, code, errno, sqlState} };
+    }
+}
+
+export { getAllTasks, getTaskById, createTask, updateTask, deleteTask }
