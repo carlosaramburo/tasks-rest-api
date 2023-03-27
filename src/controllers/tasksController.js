@@ -13,7 +13,7 @@ const getAllTasks = async (req, res) => {
         res.status(200).send(result.tasks);
     else {
         res.status(500).send(result);
-    }
+    };
 };
 
 const getTaskById = async (req, res) => {
@@ -25,8 +25,8 @@ const getTaskById = async (req, res) => {
         res.status(404).send({message: "Task not found."}); 
     else {
         res.status(500).send(result);
-    }
-}
+    };
+};
 
 const createTask = async (req, res) => {    
     const result = await createTaskService(req.body);
@@ -38,8 +38,8 @@ const createTask = async (req, res) => {
     }
     else {
         res.status(500).send(result);
-    }
-}
+    };
+};
 
 const updateTask = async (req, res) => {    
     const result = await updateTaskService(req.params.id, req.body);
@@ -48,8 +48,8 @@ const updateTask = async (req, res) => {
         res.sendStatus(200);
     else {
         res.status(500).send(result);
-    }
-}
+    };
+};
 
 const deleteTask = async (req, res) => {
     const result = await deleteTaskService(req.params.id);
@@ -60,7 +60,7 @@ const deleteTask = async (req, res) => {
         res.sendStatus(404);
     else {
         res.status(500).send(result);
-    }
-}
+    };
+};
 
-export { getAllTasks, getTaskById, createTask, updateTask, deleteTask }
+export { getAllTasks, getTaskById, createTask, updateTask, deleteTask };

@@ -10,9 +10,8 @@ const getAllTasks = async () => {
     catch(err) {
         const { message, code, errno, sqlState } = err;
         return { success: false, error: {message, code, errno, sqlState} };
-    }
-    
-}
+    };
+};
 
 const getTaskById = async (id) => { 
     try {
@@ -29,12 +28,12 @@ const getTaskById = async (id) => {
 
         const [task] = await pool.query(sql, [id]);
         return {success: true, task: task};
-    } 
+    }
     catch(err) {
         const { message, code, errno, sqlState } = err;
         return { success: false, error: {message, code, errno, sqlState} };
-    }
-}
+    };
+};
 
 const createTask = async (body) => {
     try {     
@@ -46,8 +45,8 @@ const createTask = async (body) => {
     catch(err) {
         const { message, code, errno, sqlState } = err;
         return { success: false, error: {message, code, errno, sqlState} };
-    }
-}
+    };
+};
 
 const updateTask = async (id, body) => {
     try {     
@@ -59,8 +58,8 @@ const updateTask = async (id, body) => {
     catch(err) {
         const { message, code, errno, sqlState } = err;
         return { success: false, error: {message, code, errno, sqlState} };
-    }
-}
+    };
+};
 
 const deleteTask = async (id) => { 
     try {
@@ -72,7 +71,7 @@ const deleteTask = async (id) => {
     catch(err) {
         const { message, code, errno, sqlState } = err;
         return { success: false, error: {message, code, errno, sqlState} };
-    }
-}
+    };
+};
 
-export { getAllTasks, getTaskById, createTask, updateTask, deleteTask }
+export { getAllTasks, getTaskById, createTask, updateTask, deleteTask };
