@@ -12,12 +12,12 @@ from '../controllers/tasksController.js';
 const router = Router();
 
 router
-    .get('/task', getAllTasks)
-    .get('/task/:id', getTaskById)
-    .post('/task', createTask)
-    .put('/task/:id', updateTask)
-    .delete('/task/:id', deleteTask)
-    .post('/task/tag', addTagtoTask)
-    .delete('/task/tag/:taskId/:tagId', deleteTagfromTask)
+    .get('/tasks', getAllTasks)
+    .get('/tasks/:id', getTaskById)
+    .post('/tasks', createTask)
+    .put('/tasks/:id', updateTask)
+    .delete('/tasks/:id', deleteTask)
+    .post('/tasks/tags', addTagtoTask)
+    .delete('/tasks/tags/:taskId/:tagId', deleteTagfromTask)
 
 export default router;
